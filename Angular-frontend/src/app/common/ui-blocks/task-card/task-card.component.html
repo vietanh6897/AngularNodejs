@@ -1,0 +1,61 @@
+<mat-card class="project-card">
+  <mat-card-header>
+    <mat-card-title class="flex justify-between"
+      >{{ task.title
+      }}<span
+        class="text-xs"
+        [class]="
+          task.priority === 'Lowest'
+            ? '!text-green-400'
+            : task.priority === 'Low'
+            ? '!text-teal-400'
+            : task.priority === 'High'
+            ? '!text-pink-400'
+            : '!text-rose-600'
+        "
+        >{{ " (" + task.priority + ")" }}</span
+      >
+      <span
+        class="text-xs"
+        [class]="
+          task.category === 'Feature' ? '!text-green-400' : '!text-rose-600'
+        "
+        >{{ " (" + task.category + ")" }}</span
+      >
+    </mat-card-title>
+    <mat-card-subtitle
+      [class]="
+        task.status === 'TODO'
+          ? '!text-lime-400'
+          : task.status === 'INPROGRESS'
+          ? '!text-yellow-400'
+          : task.status === 'TESTING'
+          ? '!text-purple-400'
+          : '!text-green-400'
+      "
+      >{{ task.status }}</mat-card-subtitle
+    >
+  </mat-card-header>
+  <mat-card-content>
+    <p>{{ task.description }}</p>
+  </mat-card-content>
+  <mat-card-footer class="flex justify-between p-4">
+    <div>
+      <span class="avatar">{{
+        task.member.user.username.substring(0, 2)
+      }}</span>
+    </div>
+    <div>
+      <span
+        class="text-blue-700 underline decoration-solid mr-3 cursor-pointer"
+        (click)="edit.emit()"
+        >VIEW</span
+      >
+      <span
+        class="text-red-700 underline decoration-solid cursor-pointer"
+        (click)="delete.emit()"
+        >DELETE</span
+      >
+    </div>
+  </mat-card-footer>
+</mat-card>

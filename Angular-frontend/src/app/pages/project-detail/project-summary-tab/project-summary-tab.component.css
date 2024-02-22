@@ -1,0 +1,10 @@
+.example-headers-align .mat-expansion-panel-header-description {
+  display: contents;
+}
+.example-headers-align {
+  display: flex;
+  justify-content: center;
+}
+.example-headers-align .mat-expansion-panel {
+  width: 75%;
+}

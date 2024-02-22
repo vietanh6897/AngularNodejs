@@ -1,0 +1,11 @@
+<div id="dashboard">
+  <div class="grid grid-cols-3 gap-4">
+    <ng-container *ngFor="let project of projectList">
+      <app-project-card
+        [projectInfo]="project"
+        (edit)="openDialog(project)"
+        (delete)="openDeleteDialog(project)"
+      ></app-project-card>
+    </ng-container>
+  </div>
+</div>

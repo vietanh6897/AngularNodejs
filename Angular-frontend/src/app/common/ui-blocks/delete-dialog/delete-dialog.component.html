@@ -1,0 +1,15 @@
+<h2 mat-dialog-title>DELETE CONFIRMATION</h2>
+<mat-dialog-content>
+  {{ "Delete permanently " + data.message }}
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-raised-button (click)="onNoClick()">Close</button>
+  <button
+    mat-raised-button
+    color="primary"
+    [mat-dialog-close]="true"
+    cdkFocusInitial
+  >
+    Ok
+  </button>
+</mat-dialog-actions>

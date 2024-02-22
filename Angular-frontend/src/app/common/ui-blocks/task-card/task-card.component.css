@@ -1,0 +1,12 @@
+.avatar {
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  background-color: #007bff; /* You can adjust the background color */
+  color: #ffffff; /* Text color */
+  font-size: 14px;
+  font-weight: bold;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

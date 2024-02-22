@@ -1,0 +1,100 @@
+<form class="example-form" [formGroup]="taskForm">
+  <h2 mat-dialog-title>
+    {{ data.taskInfo.id ? "EDIT TASK" : "CREATE TASK" }}
+  </h2>
+  <mat-dialog-content>
+    <div class="grid grid-cols-2 gap-4">
+      <mat-form-field>
+        <mat-label>Title</mat-label>
+        <input matInput formControlName="title" />
+        <mat-error *ngIf="cpf?.['title']?.errors?.['required']">
+          Title is <strong>required</strong>
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Description</mat-label>
+        <input matInput formControlName="description" />
+        <mat-error *ngIf="cpf?.['description']?.errors?.['required']">
+          Description is <strong>required</strong>
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Status</mat-label>
+        <mat-select name="status" formControlName="status">
+          @for (status of appConstants.TaskStatus; track status) {
+          <mat-option [value]="status.value">{{ status.value }}</mat-option>
+          }
+        </mat-select>
+        <mat-error *ngIf="cpf?.['status']?.errors?.['required']">
+          Status is <strong>required</strong>
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Category</mat-label>
+        <mat-select name="category" formControlName="category">
+          @for (category of appConstants.TaskCategory; track category) {
+          <mat-option [value]="category.value">{{ category.value }}</mat-option>
+          }
+        </mat-select>
+        <mat-error *ngIf="cpf?.['category']?.errors?.['required']">
+          Category is <strong>required</strong>
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Priority</mat-label>
+        <mat-select name="priority" formControlName="priority">
+          @for (priority of appConstants.TaskPriority; track priority) {
+          <mat-option [value]="priority.value">{{ priority.value }}</mat-option>
+          }
+        </mat-select>
+        <mat-error *ngIf="cpf?.['priority']?.errors?.['required']">
+          Priority is <strong>required</strong>
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Assignee</mat-label>
+        <mat-select name="assignee" formControlName="assignee">
+          <mat-option
+            *ngFor="let member of projectMembers"
+            [value]="member.id"
+            >{{ member.user.username }}</mat-option
+          >
+        </mat-select>
+        <mat-error *ngIf="cpf?.['assignee']?.errors?.['required']">
+          Assignee is <strong>required</strong>
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Start Date</mat-label>
+        <input matInput [matDatepicker]="picker1" formControlName="startDate" />
+        <mat-hint>MM/DD/YYYY</mat-hint>
+        <mat-datepicker-toggle
+          matIconSuffix
+          [for]="picker1"
+        ></mat-datepicker-toggle>
+        <mat-datepicker #picker1></mat-datepicker>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Due Date</mat-label>
+        <input matInput [matDatepicker]="picker2" formControlName="dueDate" />
+        <mat-hint>MM/DD/YYYY</mat-hint>
+        <mat-datepicker-toggle
+          matIconSuffix
+          [for]="picker2"
+        ></mat-datepicker-toggle>
+        <mat-datepicker #picker2></mat-datepicker>
+      </mat-form-field>
+    </div>
+  </mat-dialog-content>
+  <mat-dialog-actions>
+    <button mat-raised-button (click)="onNoClick()">Close</button>
+    <button
+      mat-raised-button
+      color="primary"
+      (click)="acceptBtnClick()"
+      cdkFocusInitial
+    >
+      Ok
+    </button>
+  </mat-dialog-actions>
+</form>

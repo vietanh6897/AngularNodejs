@@ -1,0 +1,64 @@
+version: "3.8"
+services:
+  mysql:
+    image: mysql:latest
+    restart: always
+    container_name: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: admin
+      MYSQL_DATABASE: task_manager
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./_docker/mysql/mysql_data:/var/lib/mysql
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "mysqladmin",
+          "ping",
+          "-h",
+          "localhost",
+          "-u",
+          "root",
+          "-p$$MYSQL_ROOT_PASSWORD",
+        ]
+      interval: 10s
+      timeout: 30s
+      retries: 20
+    command: ["--wait_timeout=28800", "--interactive_timeout=28800"]
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: phpmyadmin
+    ports:
+      - "8080:80"
+    environment:
+      PMA_HOST: mysql
+      MYSQL_ROOT_PASSWORD: admin
+
+  angular-frontend:
+    build: ./Angular-frontend
+    container_name: angular-frontend
+    ports:
+      - "4200:4200"
+    volumes:
+      - ./Angular-frontend:/usr/src/app
+      - /usr/src/app/node_modules
+
+  nestjs-backend:
+    build: ./Nestjs-backend
+    container_name: nestjs-backend
+    env_file: ./Nestjs-backend/.env
+    restart: always
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./Nestjs-backend:/usr/src/app
+      - /usr/src/app/node_modules
+    depends_on:
+      mysql:
+        condition: service_healthy
+    environment:
+      MYSQL_HOST: "mysql"
+      MYSQL_ROOT_PASSWORD: admin

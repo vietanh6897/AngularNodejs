@@ -1,0 +1,7 @@
+.pie-chart-container {
+  display: block;
+  position: relative;
+  height: 400px;
+  width: 400px;
+  margin: auto;
+}

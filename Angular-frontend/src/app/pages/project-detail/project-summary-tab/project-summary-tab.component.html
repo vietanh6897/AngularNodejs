@@ -1,0 +1,99 @@
+<div class="text-center p-4">
+  <h2>{{ "Have a nice day, " + userInfo.username }}</h2>
+  <p>Here's project overview</p>
+  <div class="grid grid-cols-2 gap-4">
+    <mat-card>
+      <mat-card-content>
+        <div class="text-center"><h2>Project Overview</h2></div>
+        <div class="grid grid-cols-2 gap-2">
+          <div>
+            <p class="font-bold">Project Name</p>
+            <p>{{ projectDetail.title }}</p>
+          </div>
+          <div>
+            <p class="font-bold">Project Description</p>
+            <p>{{ projectDetail.description }}</p>
+          </div>
+          <div>
+            <p class="font-bold">Project Code</p>
+            <p>{{ projectDetail.projectCode }}</p>
+          </div>
+          <div>
+            <p class="font-bold">Project Status</p>
+            <p
+              [class]="
+                projectDetail.status === 'OPENED'
+                  ? '!text-lime-400'
+                  : projectDetail.status === 'PENDING'
+                  ? '!text-yellow-400'
+                  : '!text-purple-400'
+              "
+            >
+              {{ projectDetail.status }}
+            </p>
+          </div>
+          <div>
+            <p class="font-bold">Create at</p>
+            <p>{{ projectDetail.createdAt | date }}</p>
+          </div>
+          <div>
+            <mat-accordion class="example-headers-align">
+              <mat-expansion-panel hideToggle>
+                <mat-expansion-panel-header>
+                  <mat-panel-title> Authorized Members </mat-panel-title>
+                  <mat-panel-description>
+                    <mat-icon>account_circle</mat-icon>
+                  </mat-panel-description>
+                </mat-expansion-panel-header>
+
+                <p *ngFor="let member of projectMembers">
+                  <mat-label>{{ member.user.username }}</mat-label
+                  ><mat-icon
+                    class="align-middle ml-2 cursor-pointer"
+                    color="warn"
+                    (click)="showPopupDeleteMember(member)"
+                    >remove_circle_outline</mat-icon
+                  >
+                </p>
+                <hr />
+                <div class="mt-3 mb-2 italic">Choose user from list to add</div>
+                <mat-form-field>
+                  <mat-label>Available Users</mat-label>
+                  <mat-select [(ngModel)]="selectedUsers" multiple>
+                    @for (user of availableUsers; track user) {
+                    <mat-option [value]="user.id" class="!text-xs">{{
+                      user.username + " - " + user.email
+                    }}</mat-option>
+                    }
+                  </mat-select>
+                </mat-form-field>
+                <br />
+                <button
+                  mat-button
+                  color="primary"
+                  (click)="addSelectedUsersIntoProject()"
+                >
+                  <mat-icon>add</mat-icon>Add member
+                </button>
+              </mat-expansion-panel>
+            </mat-accordion>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+    <mat-card>
+      <mat-card-content>
+        <div class="text-center"><h2>Project Task Overview</h2></div>
+        <div class="text-center">
+          <app-pie-chart
+            [pieChartOptions]="pieChartOptions"
+            [pieChartLabels]="pieChartLabels"
+            [pieChartDatasets]="pieChartDatasets"
+            [pieChartLegend]="pieChartLegend"
+            [pieChartPlugins]="pieChartPlugins"
+          ></app-pie-chart>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

@@ -1,0 +1,37 @@
+<div class="login-page">
+  <div class="form">
+    <form [formGroup]="loginForm" (ngSubmit)="login()">
+      <input
+        formControlName="username"
+        type="text"
+        placeholder="name"
+        name="username"
+        autocomplete="username"
+      />
+      <div
+        class="text-red-500 mb-2"
+        *ngIf="cpf?.['username']?.errors?.['required'] && (loginForm.get('username')?.touched || loginForm.get('username')?.dirty)"
+      >
+        Username is <strong>required</strong>
+      </div>
+      <input
+        formControlName="password"
+        type="password"
+        placeholder="password"
+        name="password"
+        autocomplete="current-password"
+      />
+      <div
+        class="text-red-500 mb-2"
+        *ngIf="cpf?.['password']?.errors?.['required'] && (loginForm.get('password')?.touched || loginForm.get('password')?.dirty)"
+      >
+        Password is <strong>required</strong>
+      </div>
+
+      <button type="submit" [disabled]="loginForm.invalid">Sign In</button>
+    </form>
+  </div>
+</div>
+<div class="spinner-container" *ngIf="loadingService.isLoading | async">
+  <mat-spinner [diameter]="50"></mat-spinner>
+</div>

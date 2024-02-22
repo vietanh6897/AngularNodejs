@@ -1,0 +1,89 @@
+<div class="horizontal-bar">
+  <div class="search-bar">
+    <form [formGroup]="searchQueryForm">
+      <mat-form-field>
+        <mat-label>Key Words</mat-label>
+        <input matInput formControlName="searchKeyword"
+      /></mat-form-field>
+      <mat-form-field>
+        <mat-label>Category</mat-label>
+        <mat-select name="category" formControlName="category" multiple>
+          <mat-option
+            *ngFor="let item of appConstants.TaskCategory"
+            [value]="item.value"
+            >{{ item.value }}</mat-option
+          >
+        </mat-select></mat-form-field
+      >
+      <mat-form-field>
+        <mat-label>Members</mat-label>
+        <mat-select name="members" formControlName="members" multiple>
+          <mat-option
+            *ngFor="let member of projectMembers"
+            [value]="member.id"
+            >{{ member.user.username }}</mat-option
+          >
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Status</mat-label>
+        <mat-select name="status" formControlName="status" multiple>
+          <mat-option
+            *ngFor="let item of appConstants.TaskStatus"
+            [value]="item.value"
+            >{{ item.value }}</mat-option
+          >
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Priority</mat-label>
+        <mat-select name="priority" formControlName="priority" multiple>
+          <mat-option
+            *ngFor="let item of appConstants.TaskPriority"
+            [value]="item.value"
+            >{{ item.value }}</mat-option
+          >
+        </mat-select>
+      </mat-form-field>
+    </form>
+    <button mat-raised-button color="warn" class="ml-3" (click)="onClear()">
+      Clear
+    </button>
+    <button
+      mat-raised-button
+      color="primary"
+      class="ml-3 mr-3"
+      (click)="onSearch()"
+    >
+      Search
+    </button>
+    <button mat-raised-button color="primary" (click)="openDialog()">
+      Create Task
+    </button>
+  </div>
+</div>
+<div class="grid grid-cols-4 gap-4 mt-3">
+  <div
+    class="kanban-column"
+    (dragover)="onDragOver($event)"
+    (drop)="onDrop($event, column.status)"
+    *ngFor="let column of kabanBoard"
+  >
+    <div class="m-3">
+      <h2>{{ column.status }}</h2>
+    </div>
+
+    <div
+      class="m-3"
+      *ngFor="let task of column.tasks"
+      (drag)="onDragStart(task)"
+      draggable="true"
+    >
+      <app-task-card
+        [task]="task"
+        (edit)="openDialog(task)"
+        (delete)="openDeleteDialog(task)"
+      ></app-task-card>
+    </div>
+  </div>
+</div>

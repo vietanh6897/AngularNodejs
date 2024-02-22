@@ -1,0 +1,38 @@
+<mat-card class="project-card">
+  <mat-card-header>
+    <mat-card-title
+      class="cursor-pointer hover:underline"
+      [routerLink]="['project', projectInfo.id]"
+      >{{ projectInfo.title }}</mat-card-title
+    >
+    <mat-card-subtitle
+      [class]="
+        projectInfo.status === 'OPENED'
+          ? '!text-lime-400'
+          : projectInfo.status === 'PENDING'
+          ? '!text-yellow-400'
+          : '!text-purple-400'
+      "
+      >{{ projectInfo.status }}</mat-card-subtitle
+    >
+  </mat-card-header>
+  <mat-card-content>
+    <p>{{ projectInfo.description }}</p>
+    <!-- Add more project information here -->
+  </mat-card-content>
+  <mat-card-footer class="flex justify-between p-4">
+    <span>{{ projectInfo.projectCode }}</span>
+    <div>
+      <span
+        class="text-blue-700 underline decoration-solid mr-3 cursor-pointer"
+        (click)="onEdit($event)"
+        >EDIT</span
+      >
+      <span
+        class="text-red-700 underline decoration-solid cursor-pointer"
+        (click)="onDelete($event)"
+        >DELETE</span
+      >
+    </div>
+  </mat-card-footer>
+</mat-card>
