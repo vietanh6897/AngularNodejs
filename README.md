@@ -27,17 +27,17 @@ Task Manager is a full-stack web application built with Nest.js and Angular. It 
 # Requirements
 
 List of prerequisites and dependencies required to run the project.
-(Refer - Here is my local environment)
-Node.js (v20.11.0)
-npm (10.2.4)
-Docker (v4.27.2)
-Xampp (v3.3.0)
+(Reference - Here is my local environment)
+Node.js (`v20.11.0`)
+npm (`10.2.4`)
+Docker (`v4.27.2`)
+Xampp (`v3.3.0`)
 
 # Installation
 
-There are two way to build & run project locally please follow `Step-by-step` instructions for setting up the project locally.
+There are `two ways` to build & run project locally. Please follow `Step-by-step` instructions for setting up the project locally.
 
-[`Build with docker`]
+[`BUILD & RUN WITH DOCKER`]
 
 ## Step 1: Download and Install Docker Desktop
 
@@ -53,9 +53,9 @@ There are two way to build & run project locally please follow `Step-by-step` in
 
 - Open project root folder named AngularNodejs with IDE (visual studio code)
 - Open new terminal then type `docker-compose up` to start the Docker containers. This takes you for a while of waiting
-- Open DockerDesktop panel to check status of containers, make sure all of them are running
+- Open DockerDesktop panel to check status of containers, make sure all of them are `running`
 
-[`Build and run using Xampp`]
+[`BUILD & RUN USING XAMPP`]
 
 ## Step 1: Download and Install XAMPP & set up database
 
@@ -104,15 +104,21 @@ Access the application in your web browser:
 
 # Configuration
 
-If you user Docker and encounter problem related to RAM usage because of VmmemWsl consume too many RAM. Then follow these steps:
+If you use Docker and encounter problem related to RAM usage because VmmemWsl consume too many RAM. Then follow these steps:
 
-## Step 1: Create `.wslconfig` file at path `C:\Users\admin`
+## Step 1:
 
-## Step 2: Copy and paste this code snippet
+- Create `.wslconfig` file at path `C:\Users\admin`
+
+## Step 2:
+
+- Open `.wslconfig` file. Copy and paste this code snippet
 
 [wsl2]
 memory=1GB
 processors=2
 localhostforwarding=true
 
-## Step 3: Save the file then restart windown.
+## Step 3:
+
+- Save the file then restart window.
