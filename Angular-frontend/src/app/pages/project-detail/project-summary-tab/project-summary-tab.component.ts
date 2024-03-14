@@ -46,7 +46,11 @@ import { IMember } from '../../../models/interface/member.interface';
   styleUrl: './project-summary-tab.component.css',
 })
 export class ProjectSummaryTabComponent implements OnInit {
-  public userInfo = JSON.parse(this.localStore.getData('userInfo') || '');
+  public userInfo: IUser = {
+    id: '',
+    username: '',
+    email: '',
+  };
   public projectDetail: IProject = {
     id: '',
     description: '',
@@ -91,6 +95,9 @@ export class ProjectSummaryTabComponent implements OnInit {
     public dialog: MatDialog
   ) {
     this.projectId = this.route.snapshot.params['id'];
+    if (this.localStore.getData('userInfo')) {
+      this.userInfo = JSON.parse(this.localStore.getData('userInfo') || '');
+    }
   }
 
   ngOnInit(): void {

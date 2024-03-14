@@ -22,7 +22,6 @@ import { MatSelectModule } from '@angular/material/select';
 import { ITask } from '../../../models/interface/task.interface';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import AppConstants from '../../constant/app-constants';
-import { ActivatedRoute } from '@angular/router';
 import { IMember } from '../../../models/interface/member.interface';
 import { MembersService } from '../../../services/members.service';
 import { provideNativeDateAdapter } from '@angular/material/core';
@@ -54,6 +53,29 @@ export class TaskDialogComponent implements OnInit {
   public appConstants = AppConstants;
   public projectMembers: IMember[] = [];
   public projectId: string;
+  public taskInfo: ITask = {
+    id: '',
+    title: '',
+    description: '',
+    assignee: '',
+    priority: 'Lowest',
+    dueDate: new Date(),
+    startDate: new Date(),
+    category: 'Feature',
+    status: 'TODO',
+    createdAt: new Date(),
+    updatedAt: new Date(),
+    member: {
+      id: '',
+      projectId: '',
+      userId: '',
+      user: {
+        id: '',
+        username: '',
+        email: '',
+      },
+    },
+  };
 
   constructor(
     public dialogRef: MatDialogRef<TaskDialogComponent>,
@@ -62,6 +84,7 @@ export class TaskDialogComponent implements OnInit {
     public membersService: MembersService
   ) {
     this.projectMembers = data.projectMembers;
+    this.taskInfo = { ...data.taskInfo };
   }
 
   ngOnInit(): void {
@@ -70,26 +93,18 @@ export class TaskDialogComponent implements OnInit {
 
   initForm() {
     this.taskForm = new FormGroup({
-      title: new FormControl(this.data.taskInfo.title, [Validators.required]),
-      description: new FormControl(this.data.taskInfo.description, [
+      title: new FormControl(this.taskInfo.title, [Validators.required]),
+      description: new FormControl(this.taskInfo.description, [
         Validators.required,
       ]),
-      assignee: new FormControl(this.data.taskInfo.assignee, [
+      assignee: new FormControl(this.taskInfo.assignee, [Validators.required]),
+      priority: new FormControl(this.taskInfo.priority, [Validators.required]),
+      dueDate: new FormControl(this.taskInfo.dueDate, [Validators.required]),
+      startDate: new FormControl(this.taskInfo.startDate, [
         Validators.required,
       ]),
-      priority: new FormControl(this.data.taskInfo.priority, [
-        Validators.required,
-      ]),
-      dueDate: new FormControl(this.data.taskInfo.dueDate, [
-        Validators.required,
-      ]),
-      startDate: new FormControl(this.data.taskInfo.startDate, [
-        Validators.required,
-      ]),
-      category: new FormControl(this.data.taskInfo.category, [
-        Validators.required,
-      ]),
-      status: new FormControl(this.data.taskInfo.status, [Validators.required]),
+      category: new FormControl(this.taskInfo.category, [Validators.required]),
+      status: new FormControl(this.taskInfo.status, [Validators.required]),
     });
   }
 
@@ -104,15 +119,15 @@ export class TaskDialogComponent implements OnInit {
   acceptBtnClick() {
     const isValid = this.taskForm.valid;
     if (isValid) {
-      this.data.taskInfo.title = this.taskForm.get('title')?.value;
-      this.data.taskInfo.description = this.taskForm.get('description')?.value;
-      this.data.taskInfo.assignee = this.taskForm.get('assignee')?.value;
-      this.data.taskInfo.priority = this.taskForm.get('priority')?.value;
-      this.data.taskInfo.dueDate = this.taskForm.get('dueDate')?.value;
-      this.data.taskInfo.startDate = this.taskForm.get('startDate')?.value;
-      this.data.taskInfo.category = this.taskForm.get('category')?.value;
-      this.data.taskInfo.status = this.taskForm.get('status')?.value;
-      this.dialogRef.close(this.data.taskInfo);
+      this.taskInfo.title = this.taskForm.get('title')?.value;
+      this.taskInfo.description = this.taskForm.get('description')?.value;
+      this.taskInfo.assignee = this.taskForm.get('assignee')?.value;
+      this.taskInfo.priority = this.taskForm.get('priority')?.value;
+      this.taskInfo.dueDate = this.taskForm.get('dueDate')?.value;
+      this.taskInfo.startDate = this.taskForm.get('startDate')?.value;
+      this.taskInfo.category = this.taskForm.get('category')?.value;
+      this.taskInfo.status = this.taskForm.get('status')?.value;
+      this.dialogRef.close(this.taskInfo);
     }
   }
 }

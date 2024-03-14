@@ -10,7 +10,13 @@ import { RouterModule } from '@angular/router';
   styleUrl: './project-card.component.css',
 })
 export class ProjectCardComponent {
-  @Input() projectInfo: IProject;
+  @Input() projectInfo: IProject = {
+    id: '',
+    title: '',
+    description: '',
+    projectCode: '',
+    status: '',
+  };
   @Output() edit = new EventEmitter();
   @Output() delete = new EventEmitter();
 

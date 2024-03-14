@@ -47,7 +47,14 @@ export class ProjectDialogComponent implements OnInit {
   public appConstants = AppConstants;
   constructor(
     public dialogRef: MatDialogRef<ProjectDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: IProject
+    @Inject(MAT_DIALOG_DATA)
+    public data: IProject = {
+      id: '',
+      title: '',
+      description: '',
+      projectCode: '',
+      status: '',
+    }
   ) {}
 
   ngOnInit(): void {
